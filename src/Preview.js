@@ -24,19 +24,22 @@ const Preview = ({ state }) => {
   };
 
   return (
-    <Box sx={{ width: "100%", margin: "auto" }} py={5}>
+    <Box sx={{ width: "100%", margin: "auto" }} py={2}>
       <Button variant="contained" color="primary" onClick={downloadHandler}>
         Download
       </Button>
       <Box
         size="A4"
         style={{
-          backgroundColor: state.color.backGroundColor["hex"],
+          backgroundColor:
+            typeof state.color.backGroundColor === "object"
+              ? state.color.backGroundColor["hex"]
+              : state.color.backGroundColor,
           color: state.color.textColor["hex"],
         }}
         py={1}
         ref={ref}
-        mt={5}
+        mt={2}
         px={1.5}
       >
         <Typography variant="h6" sx={{ fontWeight: 900 }}>
@@ -151,110 +154,150 @@ const Preview = ({ state }) => {
             </Typography>
           </Box>
         </section>
-        {state.hobbies.length > 0 && (
-          <Box>
-            <Typography variant="h6">Hobbies</Typography>
-            {state.hobbies.map((ele) => ele)}
-          </Box>
-        )}
-        {state.languages.length > 0 && (
-          <Box>
-            <Typography variant="h6">Languages</Typography>
-            {state.languages.map((ele) => ele)}
-          </Box>
-        )}
-        {state.skills.length > 0 && (
-          <Box>
-            <Typography variant="h6">Skills</Typography>
-            {state.skills.map((ele) => ele)}
-          </Box>
-        )}
-        {state.honor.length > 0 && (
-          <Box>
-            <Typography variant="h6">Honours and Awards</Typography>
-            {state.honor.map((ele) => ele)}
-          </Box>
-        )}
-        {state.work_experience.length > 0 && (
-          <Box>
-            <Typography variant="h6">Work Experience</Typography>
-            {state.work_experience.map((ele) =>
-              Object.values(ele).map((elem) => (
-                <Box py={1}>
-                  <Typography>
-                    {elem.name} - {Object.values(elem.location)},{" "}
-                    {Object.values(elem.role)}
-                  </Typography>
-                  <Typography style={{ fontSize: 13 }}>
-                    {Object.values(elem.startmonth)}{" "}
-                    {Object.values(elem.startyear)}-{" "}
-                    {Object.values(elem.endmonth).length > 0 &&
-                    Object.values(elem.endyear).length > 0 ? (
-                      <>
-                        {Object.values(elem.endmonth)}
-                        {Object.values(elem.endyear)}
-                      </>
-                    ) : (
-                      "Present"
-                    )}
-                  </Typography>
-                  <Typography>{Object.values(elem.description)}</Typography>
-                </Box>
-              ))
+        <hr />
+        <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+          <Box sx={{ flex: 0.3 }}>
+            {state.hobbies.length > 0 && (
+              <Box>
+                <Typography variant="h6">Hobbies</Typography>
+                <ul>
+                  {state.hobbies.map((ele) => (
+                    <li>{ele}</li>
+                  ))}
+                </ul>
+              </Box>
+            )}
+            {state.languages.length > 0 && (
+              <Box>
+                <Typography variant="h6">Languages</Typography>
+                <ul>
+                  {state.languages.map((ele) => (
+                    <li>{ele}</li>
+                  ))}
+                </ul>
+              </Box>
+            )}
+            {state.skills.length > 0 && (
+              <Box>
+                <Typography variant="h6">Skills</Typography>
+                <ul>
+                  {state.skills.map((ele) => (
+                    <li>{ele}</li>
+                  ))}
+                </ul>
+              </Box>
+            )}
+            {state.honor.length > 0 && (
+              <Box>
+                <Typography variant="h6">Honours and Awards</Typography>
+                <ul>
+                  {state.honor.map((ele) => (
+                    <li>{ele}</li>
+                  ))}
+                </ul>
+              </Box>
             )}
           </Box>
-        )}
-        {state.project.length > 0 && (
-          <Box>
-            <Typography variant="h6">Projects</Typography>
-            {state.project.map((ele) =>
-              Object.values(ele).map((elem) => (
-                <Box py={1}>
-                  <Typography>
-                    <strong>{elem.name}</strong>
-                  </Typography>
-                  <Typography style={{ fontSize: 13 }}>
-                    {Object.values(elem.description)}
-                  </Typography>
-                  <Typography>{Object.values(elem.deployed_link)}</Typography>
-                </Box>
-              ))
+          <hr />
+          <Box sx={{ flex: 0.7 }}>
+            {state.work_experience.length > 0 && (
+              <Box>
+                <Typography variant="h6">Work Experience</Typography>
+                <ul>
+                  {state.work_experience.map((ele) =>
+                    Object.values(ele).map((elem) => (
+                      <li>
+                        <Box py={1} style={{ textAlign: "left" }}>
+                          <Typography>
+                            {elem.name} - {Object.values(elem.location)},{" "}
+                            {Object.values(elem.role)}
+                          </Typography>
+                          <Typography style={{ fontSize: 13 }}>
+                            {Object.values(elem.startmonth)}{" "}
+                            {Object.values(elem.startyear)}-{" "}
+                            {Object.values(elem.endmonth).length > 0 &&
+                            Object.values(elem.endyear).length > 0 ? (
+                              <>
+                                {Object.values(elem.endmonth)}
+                                {Object.values(elem.endyear)}
+                              </>
+                            ) : (
+                              " Present"
+                            )}
+                          </Typography>
+                          <Typography>
+                            {Object.values(elem.description)}
+                          </Typography>
+                        </Box>
+                      </li>
+                    ))
+                  )}
+                </ul>
+              </Box>
+            )}
+            {state.project.length > 0 && (
+              <Box>
+                <Typography variant="h6">Projects</Typography>
+                <ul>
+                  {state.project.map((ele) =>
+                    Object.values(ele).map((elem) => (
+                      <li>
+                        <Box py={1}>
+                          <Typography>
+                            <strong>{elem.name}</strong>
+                          </Typography>
+                          <Typography style={{ fontSize: 13 }}>
+                            {Object.values(elem.description)}
+                          </Typography>
+                          <Typography>
+                            {Object.values(elem.deployed_link)}
+                          </Typography>
+                        </Box>
+                      </li>
+                    ))
+                  )}
+                </ul>
+              </Box>
+            )}
+            {state.education.length > 0 && (
+              <Box>
+                <Typography variant="h6">Education</Typography>
+                <ul>
+                  {state.education.map((ele) =>
+                    Object.values(ele).map((elem) => (
+                      <li>
+                        <Box py={1}>
+                          <Typography>
+                            <strong>{elem.name}</strong>
+                            {", "}
+                            {elem.location}
+                            {" - "}
+                            {elem.degree}
+                          </Typography>
+                          <Typography style={{ fontSize: 13 }}>
+                            {Object.values(elem.startmonth)}{" "}
+                            {Object.values(elem.startyear)}-{" "}
+                            {Object.values(elem.endmonth).length > 0 &&
+                            Object.values(elem.endyear).length > 0 ? (
+                              <>
+                                {Object.values(elem.endmonth)}
+                                {Object.values(elem.endyear)}
+                              </>
+                            ) : (
+                              " Present"
+                            )}
+                            {" - "}
+                            {Object.values(elem.marks)}
+                          </Typography>
+                        </Box>
+                      </li>
+                    ))
+                  )}
+                </ul>
+              </Box>
             )}
           </Box>
-        )}
-        {state.education.length > 0 && (
-          <Box>
-            <Typography variant="h6">Projects</Typography>
-            {state.education.map((ele) =>
-              Object.values(ele).map((elem) => (
-                <Box py={1}>
-                  <Typography>
-                    <strong>{elem.name}</strong>
-                    {", "}
-                    {elem.location}
-                    {" - "}
-                    {elem.degree}
-                  </Typography>
-                  <Typography style={{ fontSize: 13 }}>
-                    {Object.values(elem.startmonth)}{" "}
-                    {Object.values(elem.startyear)}-{" "}
-                    {Object.values(elem.endmonth).length > 0 &&
-                    Object.values(elem.endyear).length > 0 ? (
-                      <>
-                        {Object.values(elem.endmonth)}
-                        {Object.values(elem.endyear)}
-                      </>
-                    ) : (
-                      "Present"
-                    )}
-                    {" - "}
-                    {Object.values(elem.marks)}
-                  </Typography>
-                </Box>
-              ))
-            )}
-          </Box>
-        )}
+        </Box>
       </Box>
     </Box>
   );

@@ -17,7 +17,7 @@ export const initialValue = {
   },
   objective: "",
   color: {
-    backGroundColor: "rgb(207, 169, 169)",
+    backGroundColor: "rgb(255, 255, 255)",
     textColor: "rgb(1,1,1)",
   },
   hobbies: [],
