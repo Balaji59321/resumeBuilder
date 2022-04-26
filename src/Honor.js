@@ -18,7 +18,7 @@ function Honor({ data, dispatch }) {
   };
 
   const deleteHandler = (value) => {
-    setVal((prev) => prev.filter((ele) => ele !== value));
+    setVal((prev) => prev.filter((ele, ind) => ind !== value));
   };
 
   const submitHandler = async () => {
@@ -37,6 +37,7 @@ function Honor({ data, dispatch }) {
       }}
       px={3}
     >
+      <hr style={{ width: "100%" }} />
       <SingleRow
         value={"Honors & Rewards"}
         placeholder={"Won 1st Place"}
@@ -55,7 +56,7 @@ function Honor({ data, dispatch }) {
           marginTop: 7,
         }}
       >
-        {val.map((ele) => (
+        {val.map((ele, ind) => (
           <Box
             sx={{
               display: "flex",
@@ -68,7 +69,7 @@ function Honor({ data, dispatch }) {
             px={2}
           >
             <h3>{ele}</h3>
-            <Button variant="outlined" onClick={() => deleteHandler(ele)}>
+            <Button variant="outlined" onClick={() => deleteHandler(ind)}>
               Delete
             </Button>
           </Box>

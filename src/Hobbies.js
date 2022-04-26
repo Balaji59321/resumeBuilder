@@ -18,7 +18,7 @@ function Hobbies({ data, dispatch }) {
   };
 
   const deleteHandler = (value) => {
-    setVal((prev) => prev.filter((ele) => ele !== value));
+    setVal((prev) => prev.filter((ele, ind) => ind !== value));
   };
 
   const submitHandler = async () => {
@@ -37,6 +37,7 @@ function Hobbies({ data, dispatch }) {
       }}
       px={3}
     >
+      <hr style={{ width: "100%" }} />
       <SingleRow
         value={"Hobbies"}
         placeholder={"Playing Cricket"}
@@ -55,7 +56,7 @@ function Hobbies({ data, dispatch }) {
           marginTop: 7,
         }}
       >
-        {val.map((ele) => (
+        {val.map((ele, ind) => (
           <Box
             sx={{
               display: "flex",
@@ -68,7 +69,7 @@ function Hobbies({ data, dispatch }) {
             px={2}
           >
             <h3>{ele}</h3>
-            <Button variant="outlined" onClick={() => deleteHandler(ele)}>
+            <Button variant="outlined" onClick={() => deleteHandler(ind)}>
               Delete
             </Button>
           </Box>

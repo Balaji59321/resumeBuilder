@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Header from "./Header";
 import { Box } from "@material-ui/core";
 import Profile from "./Profile";
@@ -10,9 +10,12 @@ import Honor from "./Honor";
 import WorkExperience from "./WorkExperience";
 import Education from "./Education";
 import Projects from "./Projects";
+import { Button } from "@material-ui/core";
+import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 
 function UserInput() {
   const [val, setVal] = useState("profile");
+  const myRef = React.createRef(null);
 
   const handler = (value) => {
     setVal(value);
@@ -24,6 +27,7 @@ function UserInput() {
         sx={{
           flexWrap: "nowrap",
           overflow: "auto",
+          position: "relative",
         }}
       >
         <Header
@@ -42,7 +46,14 @@ function UserInput() {
           ]}
           value={handler}
           val={val}
+          ref={myRef}
         />
+        {/* <Button
+          onClick={() => myRef.scrollBy(100, 100)}
+          sx={{ position: "aboslute", left: 0 }}
+        >
+          <ArrowCircleRightIcon />
+        </Button> */}
       </Box>
       {val === "profile" && <Profile />}
       {val === "professional objective" && <Objective />}
