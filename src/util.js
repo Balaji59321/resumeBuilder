@@ -19,7 +19,10 @@ export const initialValue = {
   color: {
     backGroundColor: "rgb(255, 255, 255)",
     textColor: "rgb(1,1,1)",
+    headingBackGroundColor: "rgb(255, 255, 255)",
+    headingTextColor: "rgb(1,1,1)",
   },
+  font: "Public Sans",
   hobbies: [],
   languages: [],
   skills: [],
@@ -27,6 +30,8 @@ export const initialValue = {
   work_experience: [],
   project: [],
   education: [],
+  fontSizeHeading: 13,
+  fontSizeText: 10,
 };
 
 const reducer = (state = initialValue, action) => {
@@ -35,7 +40,6 @@ const reducer = (state = initialValue, action) => {
     case "PROFILE": {
       return { ...state, profile: action["values"] };
     }
-
     case "OBJECTIVE": {
       return { ...state, objective: action["values"] };
     }
@@ -62,6 +66,15 @@ const reducer = (state = initialValue, action) => {
     }
     case "EDUCATION": {
       return { ...state, education: action["values"] };
+    }
+    case "FONT": {
+      return { ...state, font: action["values"] };
+    }
+    case "HEADING_SIZE": {
+      return { ...state, fontSizeHeading: action["values"] };
+    }
+    case "TEXT_SIZE": {
+      return { ...state, fontSizeText: action["values"] };
     }
     default:
       return { ...state };
@@ -114,6 +127,18 @@ export const updateProject = (values) => {
 
 export const updateEducation = (values) => {
   return { type: "EDUCATION", values };
+};
+
+export const updateFont = (values) => {
+  return { type: "FONT", values };
+};
+
+export const updateHeadFont = (values) => {
+  return { type: "HEADING_SIZE", values };
+};
+
+export const updateTextFont = (values) => {
+  return { type: "TEXT_SIZE", values };
 };
 
 export const store = createStore(reducer);

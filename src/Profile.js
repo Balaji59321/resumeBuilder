@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Box } from "@material-ui/core";
+import { Box, Typography } from "@material-ui/core";
 import SingleRow from "./SingleRow";
 import { connect } from "react-redux";
 import { updateProfile } from "./util";
@@ -14,6 +14,13 @@ function Profile({ profile, dispatch }) {
   const changeHandler = async (name, value) => {
     await setState((prev) => {
       return { ...prev, [name]: value };
+    });
+  };
+
+  const imageHandler = async (e) => {
+    console.log(URL.createObjectURL(e.target.files[0]));
+    await setState((prev) => {
+      return { ...prev, photo_url: URL.createObjectURL(e.target.files[0]) };
     });
   };
 
@@ -36,6 +43,23 @@ function Profile({ profile, dispatch }) {
         handle={changeHandler}
         val={profile.photo_url}
       />
+      <Typography
+        variant="h6"
+        style={{ textAlign: "center", display: "block", color: "red" }}
+      >
+        Or
+      </Typography>
+      <SingleRow
+        value={"Photo Upload"}
+        name={"photo_url"}
+        handle={imageHandler}
+        type={"file"}
+      />
+      {/* <input
+        type="file"
+        onChange={imageHandler}
+        style={{ paddingBottom: "10px" }}
+      /> */}
       <SingleRow
         value={"First Name"}
         placeholder={"Jane"}

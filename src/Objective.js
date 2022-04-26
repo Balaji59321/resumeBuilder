@@ -33,6 +33,7 @@ function Objective({ state, dispatch }) {
         name={"objective"}
         handle={changeHandler}
         val={val}
+        inputType={"textarea"}
       />
       ;
     </Box>

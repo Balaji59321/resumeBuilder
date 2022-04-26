@@ -1,11 +1,12 @@
 import React from "react";
 import { Box } from "@material-ui/core";
 import { TextField } from "@material-ui/core";
-import { ChangeCircle } from "@mui/icons-material";
+import { TextareaAutosize } from "@material-ui/core";
 
 function SingleRow(props) {
   const changeHandler = (e) => {
-    props.handle(e.target.name, e.target.value);
+    if (props.type === "file") return props.handle(e);
+    return props.handle(e.target.name, e.target.value);
   };
   return (
     <Box
@@ -27,17 +28,28 @@ function SingleRow(props) {
       >
         {props.value}
       </label>
-      <TextField
-        id="outlined-basic"
-        label={!props.val && props.placeholder}
-        variant="outlined"
-        //   helperText="Some important text"
-        style={{ width: "100%" }}
-        sx={{}}
-        name={props.name}
-        onChange={changeHandler}
-        value={props.val}
-      />
+      {props.inputType === "textarea" ? (
+        <TextareaAutosize
+          minRows={10}
+          placeholder={!props.val && props.placeholder}
+          name={props.name}
+          onChange={changeHandler}
+          value={props.val}
+          style={{ fontSize: 16, backgroundColor: "#ddd" }}
+        />
+      ) : (
+        <TextField
+          id="outlined-basic"
+          label={!props.val && props.placeholder}
+          variant="outlined"
+          //   helperText="Some important text"
+          style={{ width: "100%" }}
+          name={props.name}
+          onChange={changeHandler}
+          value={props.val}
+          type={props.type ? props.type : "text"}
+        />
+      )}
     </Box>
   );
 }

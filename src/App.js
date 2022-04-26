@@ -28,7 +28,14 @@ function App() {
         >
           <UserInput />
         </Box>
-        <Box sx={{ flex: 0.4, backgroundColor: "#eee", height: "100vh" }}>
+        <Box
+          sx={{
+            flex: 0.4,
+            backgroundColor: "#eee",
+            height: "100vh",
+            overflow: "auto",
+          }}
+        >
           <Preview />
         </Box>
         <Box
